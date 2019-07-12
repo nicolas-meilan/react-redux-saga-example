@@ -1,0 +1,1 @@
+export const loadingImage = 'https://loading.io/spinners/typing/lg.-text-entering-comment-loader.gif'
