@@ -10,39 +10,3 @@
   align-items: center;
   justify-content: center;
 }
-
-.loading-image {
-  justify-self: flex-start;
-  width: 100px;
-  height: 100px;
-}
-
-.joke {
-  text-shadow: 1px 1px 3px;
-  margin-top: 41px;
-  margin-bottom: 41px;
-  color: blue;
-}
-
-.joke-button {
-  box-shadow: 10px 10px 20px gray;
-  padding: 10px;
-  color: white;
-  border-color: blue;
-  border-radius: 30px;
-  border-width: 0px;
-  background-color: blue;
-  border: none;
-  outline:none;
-}
-
-.joke-button:hover {
-  background-color: #2EE59D;
-  border-color: #2EE59D;
-  border-width: 0px;
-  border-radius: 30px;
-  box-shadow: 10px 10px 20px gray;
-  color: white;
-  border: none;
-  outline:none;
-}

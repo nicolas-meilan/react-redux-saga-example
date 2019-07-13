@@ -1,38 +1,30 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
+
 import { Home } from '../../component';
-import { connect } from 'react-redux';
+
+import { useSelector, useDispatch } from 'react-redux';
 import { fetchJoke } from '../../store/action';
 
-const mapStateToProps = ( {joke} ) => ({
-    joke: joke.joke,
-    loading: joke.loading,
-    error: joke.error
-});
 
-const mapDispatchToProps = dispatch => ({ getJoke: () => dispatch(fetchJoke())});
+const HomeContainer = () => {
+    const {
+        joke,
+        loading,
+        error
+    } = useSelector(({joke: {joke, loading, error}}) => ({joke, loading, error}));
+    const dispatch = useDispatch();
+    const getJoke = useCallback(() => dispatch(fetchJoke()), [dispatch]);
+    useEffect(() => {
+        getJoke();
+    }, [getJoke]);
+    return (
+        <Home
+            joke={joke}
+            loading={loading}
+            error={error}
+            getJoke={getJoke}
+        />
+    );
+};
 
-class HomeContainer extends React.Component {
-    componentDidMount() {
-        this.props.getJoke();
-    }
-
-    render() {
-        const {
-            joke,
-            loading,
-            getJoke,
-            error
-        } = this.props;
-        console.log(error)
-        return(
-            <Home
-                joke={joke} 
-                loading={loading}
-                error={error}
-                getJoke={getJoke}
-            />
-        );
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(HomeContainer);
+export default HomeContainer;

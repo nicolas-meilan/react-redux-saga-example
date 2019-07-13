@@ -1,29 +1,32 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
+import PropTypes from 'prop-types';
 
 import './error.css';
 
 
-export default class Error extends React.Component {
-    state = { visible: true };
-
-    close = () => {
-        this.setState({visible: false});
-    }
-    
-    render() {
-        const { message } = this.props;
-        const { visible } = this.state;
-        return (
-            <>
-                {
+const Error = ({ message }) => {
+    const [visible, setVisibility] = useState(true);
+    const close = useCallback(() => setVisibility(false), []);
+    return (
+        <>
+            {
                 visible && !!message && (
-                <div className='error'>
-                    <span className='error-message'>{message}</span>
-                    <button className='close' onClick={this.close}>x</button>
-                </div>
+                    <div className='error'>
+                        <span className='error-message'>{message}</span>
+                        <button className='close' onClick={close}>x</button>
+                    </div>
                 )
             }
-            </>
-        );
-    }
+        </>
+    );
 }
+
+Error.propTypes = {
+    message: PropTypes.string
+};
+
+Error.defaultProps = {
+    message: undefined
+};
+
+export default Error;

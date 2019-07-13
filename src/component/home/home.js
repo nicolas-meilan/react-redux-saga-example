@@ -1,29 +1,34 @@
 import React from 'react';
-import Error from '../error';
-import { loadingImage } from '../../const';
+import PropTypes from 'prop-types';
+
+import { Error, Joke } from '../';
+
 import './home.css';
 
 
-export default class Home extends React.Component {
-    render() {
-        const { joke, getJoke, loading, error } = this.props;
-        return (
-            <div className='home'>
-                { loading
-                    ? <img
-                        className='loading-image'
-                        alt='loading'
-                        src={loadingImage}
-                      />
-                    : (
-                        <>
-                            <span className='joke'>{joke}</span>
-                            <Error message={error}/>
-                        </>
-                    )
-                }
-                <button className='joke-button' onClick={getJoke}>{'GET JOKE'}</button>
-            </div>
-        );
-    }
+const Home = ({ joke, loading, error, getJoke }) => {
+    return (
+        <div className='home'>
+            <Joke
+                joke={joke}
+                getJoke={getJoke}
+                loading={loading}
+            />
+            {!loading && <Error message={error} />}
+        </div>
+    );
 }
+
+Home.propTypes = {
+    joke: PropTypes.string.isRequired,
+    loading: PropTypes.bool,
+    error: PropTypes.string,
+    getJoke: PropTypes.func.isRequired,
+};
+
+Home.defaultProps = {
+    error: undefined,
+    loading: false,
+};
+
+export default Home;
